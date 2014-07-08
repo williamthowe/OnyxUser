@@ -1,0 +1,29 @@
+{
+    "name": "paul-headington/OnyxUser",
+    "keywords": ["Onyx", "User Module"],
+	"license": "MIT",
+	"require": {
+		"php": ">=5.4.0"
+	},
+    "authors": [
+        {
+            "name": "Paul Headington",
+            "email": "paul.headington@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "zendframework/zendframework": "2.3.*",
+        "paul-headington/GetSet": "dev-master",
+        "paul-headington/OnyxLogger": "dev-master",
+        "paul-headington/OnyxSystem": "dev-master"
+    },
+    "autoload": {
+        "psr-0" : {
+            "System": "src/"
+        },
+        "classmap": [
+            "./Module.php"
+        ]
+    }
+}
