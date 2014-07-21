@@ -10,7 +10,7 @@ return array(
     
     'controllers' => array(
         'invokables' => array(
-            'User\Controller\User' => 'User\Controller\UserController',
+            'OnyxUser\Controller\User' => 'OnyxUser\Controller\UserController',
         ),
     ),
         // The following section is new and should be added to your file
@@ -25,7 +25,7 @@ return array(
                         'id'     => '[0-9]+',
                     ),
                     'defaults' => array(
-                        'controller' => 'User\Controller\User',
+                        'controller' => 'OnyxUser\Controller\User',
                         'action'     => 'index',
                     ),
                 ),

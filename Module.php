@@ -1,8 +1,8 @@
 <?php
-namespace User;
+namespace OnyxUser;
 
-use User\Model\User;
-use User\Model\UserTable;
+use OnyxUser\Model\User;
+use OnyxUser\Model\UserTable;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
 use OnyxAcl\Acl as OnyxAcl;

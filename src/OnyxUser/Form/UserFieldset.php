@@ -1,10 +1,10 @@
 <?php
-namespace User\Form;
+namespace OnyxUser\Form;
 
 use Zend\Form\Fieldset;
 use Zend\InputFilter\InputFilterProviderInterface;
 use Zend\Stdlib\Hydrator\ArraySerializable as ArraySerializable;
-use User\Model\User;
+use OnyxUser\Model\User;
 
 class UserFieldset extends Fieldset implements InputFilterProviderInterface
 {

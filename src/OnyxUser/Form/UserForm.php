@@ -1,5 +1,5 @@
 <?php
-namespace User\Form;
+namespace OnyxUser\Form;
 
 use ZfcBase\Form\ProvidesEventsForm;
 use Zend\InputFilter\InputFilter;
@@ -16,7 +16,7 @@ class UserForm extends ProvidesEventsForm
                      ->setHydrator(new ArraySerializable(false))
                      ->setInputFilter(new InputFilter());
                 $this->add(array(
-                    'type' => 'User\Form\UserFieldset',
+                    'type' => 'OnyxUser\Form\UserFieldset',
                     'options' => array(
                         'use_as_base_fieldset' => true
                     )

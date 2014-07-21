@@ -1,5 +1,5 @@
 <?php
-namespace User\Model;
+namespace OnyxUser\Model;
 
 use Zend\Db\TableGateway\TableGateway;
 
