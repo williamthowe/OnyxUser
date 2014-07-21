@@ -17,6 +17,7 @@ class UserController extends AbstractActionController
 {
     protected $userTable;
     protected $_createUserForm;
+    protected $eventIdentifier = 'Onyx\Service\EventManger';
     
     public function indexAction()
     {
@@ -63,7 +64,7 @@ class UserController extends AbstractActionController
                 try{
                     $this->getUserTable()->save($user);
                 }catch(\Exception $e){
-                    echo $e->getMessage();
+                    $this->getEventManager()->trigger('logError', null, array("name" => "Error saving user -> OU-UC-ADD01", "message" => $e->getMessage(), "data" => $postData));
                 }
                 return $this->redirect()->toUrl('/user/success');
             }
@@ -114,7 +115,7 @@ class UserController extends AbstractActionController
                 try{
                     $this->getUserTable()->save($user);
                 }catch(Exception $e){
-                    echo $e->getMessage();
+                    $this->getEventManager()->trigger('logError', null, array("name" => "Error saving user -> OU-UC-EDIT01", "message" => $e->getMessage(), "data" => $postData));
                 }
                 return $this->redirect()->toUrl('/user/success');
             }
