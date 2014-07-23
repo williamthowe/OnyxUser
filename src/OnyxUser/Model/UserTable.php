@@ -143,6 +143,12 @@ class UserTable
         $data['logindate'] = date('Y-m-d H:i:s');
         $this->tableGateway->update($data, array('id' => $id));
     }
+    
+    public function setNewToken($user){
+        $data['token'] = md5($user->email .  time() . '09438564236jkl34h6klhkjlgdf879');
+        $this->tableGateway->update($data, array('id' => $user->id));
+        return $data['token'];
+    }
 
 
 }

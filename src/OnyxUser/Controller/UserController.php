@@ -66,6 +66,13 @@ class UserController extends AbstractActionController
                 }catch(\Exception $e){
                     $this->getEventManager()->trigger('logError', null, array("name" => "Error saving user -> OU-UC-ADD01", "message" => $e->getMessage(), "data" => $postData));
                 }
+                $this->renderer = $this->getServiceLocator()->get('ViewRenderer');  
+                $content = $this->renderer->render('email/tpl/welcome-email', null);  
+                $this->getEventManager()->trigger('sendMessage', null, array(
+                    "to" => array($user->getEmail(), $user->getFirstname() . " " . $user->getLastname()),
+                    "subject" => "Password reset",
+                    "body" => $content,
+                    ));
                 return $this->redirect()->toUrl('/user/success');
             }
         }
@@ -126,6 +133,28 @@ class UserController extends AbstractActionController
 
     public function deleteAction()
     {
+    }
+    
+    public function forgotPasswordAction(){
+        $id = (int)$this->params('id');
+        if (!$id) {
+            return new ViewModel(array('message' => "no user found"));
+        }else{
+            $user = $this->getUserTable()->getById($id);
+            $token = $this->getUserTable()->setNewToken($user);
+            $config = $this->getServiceLocator()->get('config');
+            
+            
+            $this->renderer = $this->getServiceLocator()->get('ViewRenderer');  
+            $content = $this->renderer->render('onyx-user/email/tpl/forgot-password', array('firstname' => $user->firstname, 'lastname' => $user->lastname, 'email' => $user->email, 'token' => $token, 'sitename' => $config['site_setings']['site_name'], 'siteurl' => $config['site_setings']['site_url']));  
+            $this->getEventManager()->trigger('sendMessage', null, array(
+                "to" => array($user->email, $user->firstname . ' ' . $user->lastname),
+                "subject" => "Password reset",
+                "body" => $content,
+                ));
+            
+            return new ViewModel(array('message' => "reset email sent"));
+        }
     }
     
     public function logoutAction(){
