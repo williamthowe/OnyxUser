@@ -42,37 +42,48 @@ class UserController extends AbstractActionController
                     'field'   => 'email',
                     'adapter' => $sm->get('Zend\Db\Adapter\Adapter'),
                 )
-            );
-           
-            
+            );  
 
             if ($validator->isValid($postData->User['email']) === FALSE) {
                 // email address is invalid; print the reasons
-                $messages[] = 'Email already exists';
+                $messages['email'] = array('Email already exists');
                 return new ViewModel(array('form' => $form, 'messages' => $messages));
             }
             
             
+            $config = $sm->get('config');
+            
             $form->setData($postData);
             if ($form->isValid() === FALSE) {
-                foreach($form->getElements() as $element){
-                    \Zend\Debug\Debug::dump($element);
-                }
-                $messages[] = 'Form has invalid data';
+                $messages = $form->getMessages();
                 return new ViewModel(array('form' => $form, 'messages' => $messages));                
             }else{
                 try{
-                    $this->getUserTable()->save($user);
+                    if($config['onyx_user']['double_opt_in']){
+                        $user->setIsactive(false);
+                    }else{
+                        $user->setIsactive(true);
+                    }
+                    
+                    //$this->getUserTable()->save($user);
                 }catch(\Exception $e){
                     $this->getEventManager()->trigger('logError', null, array("name" => "Error saving user -> OU-UC-ADD01", "message" => $e->getMessage(), "data" => $postData));
                 }
+                
                 $this->renderer = $this->getServiceLocator()->get('ViewRenderer');  
-                $content = $this->renderer->render('email/tpl/welcome-email', null);  
+                if($config['onyx_user']['double_opt_in']){
+                    $token = $this->getUserTable()->setNewToken($user);
+                    $confirmLink = $config['site_settings']['site_url'] . '/user/confirm/' . $token;
+                    $content = $this->renderer->render($config['onyx_user']['welcome_template_double_opt'], array('firstName' => $user->getFirstname(), 'lastName' => $user->getLastname(), "confirmLink" => $confirmLink));                      
+                }else{
+                    $content = $this->renderer->render($config['onyx_user']['welcome_template'], array('firstName' => $user->getFirstname(), 'lastName' => $user->getLastname()));  
+                }
                 $this->getEventManager()->trigger('sendMessage', null, array(
                     "to" => array($user->getEmail(), $user->getFirstname() . " " . $user->getLastname()),
-                    "subject" => "Password reset",
+                    "subject" => $config['onyx_user']['welcome_subject'],
                     "body" => $content,
-                    ));
+                    ));                
+                
                 return $this->redirect()->toUrl('/user/success');
             }
         }
@@ -113,11 +124,8 @@ class UserController extends AbstractActionController
                         
             $form->setData($postData);
             if ($form->isValid() === FALSE) {
-                foreach($form->getElements() as $element){
-                    \Zend\Debug\Debug::dump($element);
-                }
-                $messages[] = 'Form has invalid data';
-                return new ViewModel(array('form' => $form, 'messages' => $messages));                
+                $messages = $form->getMessages();
+                return new ViewModel(array('form' => $form, 'messages' => $messages));                     
             }else{
                 try{
                     $this->getUserTable()->save($user);

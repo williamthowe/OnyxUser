@@ -38,7 +38,7 @@ class Module
                 'OnyxUser' =>  function($sm) {
                     $config = $sm->get('Config');
                     $user = new User();
-                    $user->setStaticSalt($config['user_settings']['static_salt']);
+                    $user->setStaticSalt($config['onyx_user']['static_salt']);
                     return $user;
                 },
                 'OnyxUserTable' =>  function($sm) {

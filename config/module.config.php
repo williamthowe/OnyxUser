@@ -1,11 +1,15 @@
 <?php
 return array(
     
-    'user_settings' => array(
+    'onyx_user' => array(
         'static_salt' => '94ae2c097990e9c777333e6af0c805ad',
         'auth_table' => 'user',
         'credential_column' => 'password',
         'identity_column' => 'email',
+        'double_opt_in' => true,
+        'welcome_template' => 'onyx-user/email/tpl/welcome-email',
+        'welcome_template_double_opt' => 'onyx-user/email/tpl/welcome-email-double',
+        'welcome_subject' => 'Welcome to the site',
     ),
     
     'controllers' => array(

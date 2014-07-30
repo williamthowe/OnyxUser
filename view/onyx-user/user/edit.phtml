@@ -2,10 +2,15 @@
     
     <?php 
     if(is_array($this->messages)){         
-        $messageBody = '';
-        foreach($this->messages as $message){
-            $messageBody .= '<p>'.$message.'</p>';
+        $messageBody = '<ul>';
+        foreach($this->messages as $name => $messagelist){
+            $text = '';
+            foreach($messagelist as $message){
+                $text .= $message . "<br/>";
+            }
+            $messageBody .= '<li>'.$name . ' - ' . $text.'</li>';
         }  
+        $messageBody .= '</ul>';
         
     ?>
     <div class="col-md-12"><?php echo $messageBody; ?></div>
