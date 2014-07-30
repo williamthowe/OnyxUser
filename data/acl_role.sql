@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : Business Sorter
+Source Server         : Example
 Source Server Version : 50532
 Source Host           : localhost:3306
 Source Database       : bs-dev
