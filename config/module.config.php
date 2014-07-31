@@ -10,6 +10,7 @@ return array(
         'welcome_template' => 'onyx-user/email/tpl/welcome-email',
         'welcome_template_double_opt' => 'onyx-user/email/tpl/welcome-email-double',
         'welcome_subject' => 'Welcome to the site',
+        'token_expire' => '-3 hour',
     ),
     
     'controllers' => array(
@@ -26,7 +27,7 @@ return array(
                     'route'    => '/user[/:action][/:id]',
                     'constraints' => array(
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                        'id'     => '[0-9]+',
+                        'id'     => '[a-zA-Z0-9_-]*',
                     ),
                     'defaults' => array(
                         'controller' => 'OnyxUser\Controller\User',

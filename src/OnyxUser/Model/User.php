@@ -81,6 +81,8 @@ class User
     public $facebookdata = null;
 
     public $token = null;
+    
+    public $tokenexpire = null;
 
     public $isactive = 0;
 
@@ -392,6 +394,13 @@ class User
                 )
             )
         ),
+        'tokenexpire' => array(
+            'required' => false,
+            'name' => 'tokenexpire',
+            'validators' => array(
+                
+            )
+        ),
         'isactive' => array(
             'required' => false,
             'name' => 'isactive',
@@ -506,6 +515,7 @@ class User
         $this->terms		= (isset($data["terms"])) ? $data["terms"] : null;
         $this->facebookdata		= (isset($data["facebookdata"])) ? $data["facebookdata"] : null;
         $this->token		= (isset($data["token"])) ? $data["token"] : null;
+        $this->tokenexpire		= (isset($data["tokenexpire"])) ? $data["tokenexpire"] : null;
         $this->isactive		= (isset($data["isactive"])) ? $data["isactive"] : null;
         $this->logindate		= (isset($data["logindate"])) ? $data["logindate"] : null;
         $this->lastupdate		= (isset($data["lastupdate"])) ? $data["lastupdate"] : null;

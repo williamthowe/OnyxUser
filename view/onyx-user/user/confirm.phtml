@@ -1,0 +1,26 @@
+<div class="row">
+    <?php if($this->success){?>
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Congratulations your account has been activated.</h3>
+            </div>
+            <div class="panel-body">
+                <p>To access your account please login <a href="/user/login">here</a></p>
+            </div>
+        </div>
+    </div>
+    <?php }else{?>
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Invalid Token</h3>
+            </div>
+            <div class="panel-body">
+                <p>your activation token is invalid or expired.</p>
+            </div>
+        </div>
+    </div>
+    <?php }?>
+  
+</div>

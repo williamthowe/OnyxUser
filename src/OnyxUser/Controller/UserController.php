@@ -63,9 +63,8 @@ class UserController extends AbstractActionController
                         $user->setIsactive(false);
                     }else{
                         $user->setIsactive(true);
-                    }
-                    
-                    //$this->getUserTable()->save($user);
+                    }                    
+                    $this->getUserTable()->save($user);
                 }catch(\Exception $e){
                     $this->getEventManager()->trigger('logError', null, array("name" => "Error saving user -> OU-UC-ADD01", "message" => $e->getMessage(), "data" => $postData));
                 }
@@ -93,6 +92,27 @@ class UserController extends AbstractActionController
     
     public function successAction()
     {
+    }
+    
+    public function confirmAction(){
+        $token = (string)$this->params('id');
+        if($token == null){
+            return new ViewModel(array('success' => false));
+        }
+        $user = $this->getUserTable()->getByToken($token);
+        if($user === false){
+            return new ViewModel(array('success' => false));
+        }
+        $sm = $this->getServiceLocator();
+        $config = $sm->get('config');
+                
+        if(strtotime($user->tokenexpire) < strtotime($config['onyx_user']['token_expire'])){
+            return new ViewModel(array('success' => false));
+        }
+        $user->setIsactive(true);
+        $user->setTokenexpire(date('Y-m-d H:i:s', strtotime('-1 year')));
+        $this->getUserTable()->save($user);
+        return new ViewModel(array('success' => true));;
     }
 
     public function editAction()

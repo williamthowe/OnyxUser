@@ -104,6 +104,7 @@ class UserTable
         	'terms' => $user->terms,
         	'facebookdata' => $user->facebookdata,
         	'token' => $user->token,
+                'tokenexpire' => $user->tokenexpire,    
         	'isactive' => $user->isactive,
         	'logindate' => $user->logindate,
         	'lastupdate' => $user->lastupdate,
@@ -113,7 +114,9 @@ class UserTable
         $id = (int)$user->id;
         if ($id == 0) {
         	$data['postdate'] = date('Y-m-d H:i:s');
-        	return $this->tableGateway->insert($data);
+                $id = $this->tableGateway->insert($data);
+                $user->id = $id;
+        	return $id;
         } else {
         	if ($this->getById($id)) {
         		$this->tableGateway->update($data, array('id' => $id));
@@ -146,8 +149,25 @@ class UserTable
     
     public function setNewToken($user){
         $data['token'] = md5($user->email .  time() . '09438564236jkl34h6klhkjlgdf879');
+        $data['tokenexpire'] = date("Y-m-d H:i:s");
         $this->tableGateway->update($data, array('id' => $user->id));
         return $data['token'];
+    }
+    
+    /**
+     * retrieve object by token
+     *
+     * @token 
+     */
+    public function getByToken($token)
+    {
+        $token  = (string) $token;
+        $rowset = $this->tableGateway->select(array('token' => $token));
+        $row = $rowset->current();
+        if (!$row) {
+        	return false;
+        }
+        return $row;
     }
 
 
