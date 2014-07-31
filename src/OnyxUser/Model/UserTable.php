@@ -37,6 +37,12 @@ use Zend\Db\TableGateway\TableGateway;
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
+// @TODO
+/*
+ *  Rename the table to prefix with module name
+ * 
+ */
 class UserTable
 {
 
