@@ -65,6 +65,7 @@ class UserController extends AbstractActionController
                         $user->setIsactive(true);
                     }                    
                     $this->getUserTable()->save($user);
+                    $this->getEventManager()->trigger('newUserAdded', null, $postData);
                 }catch(\Exception $e){
                     $this->getEventManager()->trigger('logError', null, array("name" => "Error saving user -> OU-UC-ADD01", "message" => $e->getMessage(), "data" => $postData));
                 }
@@ -149,6 +150,7 @@ class UserController extends AbstractActionController
             }else{
                 try{
                     $this->getUserTable()->save($user);
+                    $this->getEventManager()->trigger('userEditied', null, $postData);
                 }catch(Exception $e){
                     $this->getEventManager()->trigger('logError', null, array("name" => "Error saving user -> OU-UC-EDIT01", "message" => $e->getMessage(), "data" => $postData));
                 }
