@@ -4,7 +4,7 @@ return array(
     
     'onyx_user' => array(
         'static_salt' => '94ae2c097990e9c777333e6af0c805ad',
-        'auth_table' => 'user',
+        'auth_table' => 'onyx_user',
         'credential_column' => 'password',
         'identity_column' => 'email',
         'double_opt_in' => true,
