@@ -19,9 +19,18 @@ class UserController extends AbstractActionController
     protected $_createUserForm;
     protected $eventIdentifier = 'Onyx\Service\EventManger';
     
+    public function onDispatch( \Zend\Mvc\MvcEvent $e ){
+        $this->layout('layout/onyx_user');
+        
+        return parent::onDispatch($e);
+    }
+    
     public function indexAction()
     {
-        return new ViewModel();
+        $OnyxAcl = $this->getServiceLocator()->get('OnyxAcl');
+        $ident = $OnyxAcl->getIdentity();
+        
+        return new ViewModel(array('ident' => $ident));
     }
     
     public function addAction()
@@ -63,7 +72,8 @@ class UserController extends AbstractActionController
                         $user->setIsactive(false);
                     }else{
                         $user->setIsactive(true);
-                    }                    
+                    }   
+                    $user->setRole($config['onyx_user']['default_role']);
                     $this->getUserTable()->save($user);
                     $this->getEventManager()->trigger('newUserAdded', null, $postData);
                 }catch(\Exception $e){
@@ -115,6 +125,39 @@ class UserController extends AbstractActionController
         $this->getUserTable()->save($user);
         return new ViewModel(array('success' => true));;
     }
+    
+    public function resetAction(){
+        $token = (string)$this->params('id');
+        if($token == null){
+            return new ViewModel(array('success' => false, 'done' => false));
+        }
+        $user = $this->getUserTable()->getByToken($token);
+        if($user === false){
+            return new ViewModel(array('success' => false, 'done' => false));
+        }
+        $sm = $this->getServiceLocator();
+        $config = $sm->get('config');
+
+        if(strtotime($user->tokenexpire) < strtotime($config['onyx_user']['token_expire'])){
+            return new ViewModel(array('success' => false, 'done' => false));
+        }
+        
+        if ($this->request->isPost()) {
+            $data = $this->request->getPost(); 
+            if(isset($data['password']) && isset($data['password-repeat'])){
+                if($data['password'] == $data['password-repeat']){
+                    $user->setPassword($data['password']);
+                    $user->setTokenexpire(date('Y-m-d H:i:s', strtotime('-1 year')));
+                    $this->getUserTable()->save($user);
+                    return new ViewModel(array('success' => true, 'done' => true));
+                }
+                
+            }
+            return new ViewModel(array('success' => true, 'message' => 'password invalid', 'done' => false));
+        }
+           
+        return new ViewModel(array('success' => true, 'done' => false));
+    }
 
     public function editAction()
     {
@@ -135,7 +178,6 @@ class UserController extends AbstractActionController
                 'action' => 'add'
             ));     
         }
-        
         $form->bind($user);
         $form->get('submit')->setAttribute('value', 'Edit');
         
@@ -165,32 +207,44 @@ class UserController extends AbstractActionController
     {
     }
     
-    public function forgotPasswordAction(){
-        $id = (int)$this->params('id');
-        if (!$id) {
-            return new ViewModel(array('message' => "no user found"));
-        }else{
-            $user = $this->getUserTable()->getById($id);
-            $token = $this->getUserTable()->setNewToken($user);
-            $config = $this->getServiceLocator()->get('config');
-            
-            
-            $this->renderer = $this->getServiceLocator()->get('ViewRenderer');  
-            $content = $this->renderer->render('onyx-user/email/tpl/forgot-password', array('firstname' => $user->firstname, 'lastname' => $user->lastname, 'email' => $user->email, 'token' => $token, 'sitename' => $config['site_setings']['site_name'], 'siteurl' => $config['site_setings']['site_url']));  
-            $this->getEventManager()->trigger('sendMessage', null, array(
-                "to" => array($user->email, $user->firstname . ' ' . $user->lastname),
-                "subject" => "Password reset",
-                "body" => $content,
-                ));
-            
-            return new ViewModel(array('message' => "reset email sent"));
+    public function forgotPasswordAction(){   
+        if ($this->request->isPost()) {
+            $data = $this->request->getPost();   
+            $email = $data['email'];        
+            if (!$email) {
+                return new ViewModel(array('message' => "no user found", 'posted' => false));
+            }else{
+                $user = $this->getUserTable()->getByEmail($email);
+                if($user === false){
+                    return new ViewModel(array('message' => "no user found", 'posted' => false));
+                }else{
+                    $token = $this->getUserTable()->setNewToken($user);
+                    $config = $this->getServiceLocator()->get('config');
+
+                    $resetLink = $config['site_settings']['site_url'] . '/user/reset/' . $token;            
+
+                    $this->renderer = $this->getServiceLocator()->get('ViewRenderer');  
+                    $content = $this->renderer->render($config['onyx_user']['reset_email_template'], array('firstname' => $user->getFirstname(), 'lastname' => $user->getLastname(),'sitename' => $config['site_settings']['site_name'], "resetLink" => $resetLink));                      
+
+                                   
+                    $this->getEventManager()->trigger('sendMessage', null, array(
+                        "to" => array($user->email, $user->firstname . ' ' . $user->lastname),
+                        "subject" => "Password reset",
+                        "body" => $content,
+                        ));
+
+                    return new ViewModel(array('message' => "", 'posted' => true));
+                }
+            }
         }
+        return new ViewModel(array('message' => "", 'posted' => false));
     }
     
     public function logoutAction(){
         $OnyxAcl = $this->getServiceLocator()->get('OnyxAcl');
+        $config = $this->getServiceLocator()->get('config');
         $OnyxAcl->logout();
-        return $this->redirect()->toRoute('home');
+        return $this->redirect()->toRoute($config['onyx_acl']['logout_route']);
     }
 
     public function loginAction(){
@@ -198,16 +252,16 @@ class UserController extends AbstractActionController
         $OnyxAcl = $this->getServiceLocator()->get('OnyxAcl');
         $config = $this->getServiceLocator()->get('config');
         if($OnyxAcl->checkAuth()){
-            // logged in redirect to where wanted            
-            $this->redirect()->toRoute($config['aclSettings']['loginRoute']);
+            // logged in redirect to where wanted              
+            $this->redirect()->toRoute($config['onyx_acl']['login_route']);
         }
         if ($this->request->isPost()) {
-            $data = $this->request->getPost();
+            $data = $this->request->getPost();           
             
             if($OnyxAcl->authenticate($data)){
                 $data = DataFunctions::objectToArray($OnyxAcl->getIdentity());
                 $this->getUserTable()->updateLogin($data['id']);
-                $this->redirect()->toRoute($config['aclSettings']['loginRoute']);
+                $this->redirect()->toRoute($config['onyx_acl']['login_route']);
             }else{
                 $messages[] = $OnyxAcl->message;
             }  

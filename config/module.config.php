@@ -10,7 +10,9 @@ return array(
         'welcome_template' => 'onyx-user/email/tpl/welcome-email',
         'welcome_template_double_opt' => 'onyx-user/email/tpl/welcome-email-double',
         'welcome_subject' => 'Welcome to the site',
+        'reset_email_template' => 'onyx-user/email/tpl/reset-email',
         'token_expire' => '-3 hour',
+        'default_role' => 'guest',
     ),
     
     'controllers' => array(
@@ -39,7 +41,10 @@ return array(
     ),
     'view_manager' => array(
         'template_path_stack' => array(
-            'user' => __DIR__ . '/../view',
+            'onyx_user' => __DIR__ . '/../view',            
+        ),
+        'template_map' => array(
+            'layout/onyx_user'    => __DIR__ . '/../view/layout/onyx_user.phtml',
         ),
     ),
 );

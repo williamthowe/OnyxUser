@@ -118,6 +118,7 @@ class UserTable
 
         );
         $id = (int)$user->id;
+        
         if ($id == 0) {
         	$data['postdate'] = date('Y-m-d H:i:s');
                 $id = $this->tableGateway->insert($data);
@@ -169,6 +170,22 @@ class UserTable
     {
         $token  = (string) $token;
         $rowset = $this->tableGateway->select(array('token' => $token));
+        $row = $rowset->current();
+        if (!$row) {
+        	return false;
+        }
+        return $row;
+    }
+    
+    /**
+     * retrieve object by email
+     *
+     * @email 
+     */
+    public function getByEmail($email)
+    {
+        $email  = (string) $email;
+        $rowset = $this->tableGateway->select(array('email' => $email));
         $row = $rowset->current();
         if (!$row) {
         	return false;

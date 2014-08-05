@@ -11,17 +11,17 @@
  Target Server Version : 50537
  File Encoding         : utf-8
 
- Date: 07/31/2014 16:32:18 PM
+ Date: 08/05/2014 16:02:32 PM
 */
 
 SET NAMES utf8;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
---  Table structure for `user`
+--  Table structure for `onyx_user`
 -- ----------------------------
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user` (
+DROP TABLE IF EXISTS `onyx_user`;
+CREATE TABLE `onyx_user` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,

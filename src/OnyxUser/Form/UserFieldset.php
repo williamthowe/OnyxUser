@@ -4,6 +4,7 @@ namespace OnyxUser\Form;
 use Zend\Form\Fieldset;
 use Zend\InputFilter\InputFilterProviderInterface;
 use Zend\Stdlib\Hydrator\ArraySerializable as ArraySerializable;
+use Zend\Stdlib\Hydrator\ObjectProperty as ObjectProperty; 
 use OnyxUser\Model\User;
 
 class UserFieldset extends Fieldset implements InputFilterProviderInterface
@@ -12,7 +13,7 @@ class UserFieldset extends Fieldset implements InputFilterProviderInterface
     public function __construct()
     {
         parent::__construct('User');
-                $this->setHydrator(new ArraySerializable(false))
+                $this->setHydrator(new ObjectProperty(false))
                      ->setObject(new User());
                 $this->setLabel('User');        
                 

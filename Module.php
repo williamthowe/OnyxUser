@@ -50,7 +50,7 @@ class Module
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
                     $resultSetPrototype = new ResultSet();
                     $resultSetPrototype->setArrayObjectPrototype($sm->get('OnyxUser'));
-                    return new TableGateway('user', $dbAdapter, null, $resultSetPrototype);
+                    return new TableGateway('onyx_user', $dbAdapter, null, $resultSetPrototype);
                 },
                 'contentuser_create_user_form' => function($sm) {
                     $form = new Form\UserForm();

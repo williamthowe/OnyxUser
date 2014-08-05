@@ -20,10 +20,12 @@
         <?php $form->prepare(); $form->setAttribute('class', 'test'); ?>
         <?php echo $this->form()->openTag($form); ?>
         <?php $User = $form->get('User'); ?>
+        <?php echo $this->formRow($User->get('id')); ?>
         <?php echo $this->formRow($User->get('firstname')); ?>
         <?php echo $this->formRow($User->get('lastname')); ?>
         <?php echo $this->formRow($User->get('terms')); ?>
         <?php echo $this->formRow($User->get('email')); ?>
+        <?php echo $this->formRow($User->get('role')); ?>
         <?php echo $this->formHidden($form->get('csrf')); ?>
         <?php echo $this->formInput($form->get('submit')); ?>
         <?php echo $this->form()->closeTag($form); ?>

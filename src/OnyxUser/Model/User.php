@@ -529,16 +529,25 @@ class User
      */
     public function setPassword($password)
     {
-        if($password != $this->password){
-        if($this->staticSalt == null){
-        throw new \Exception("No static salt set, please inital model via service manager");
+        if($password != ''){
+            if(strlen($password) < 40){
+                if($password != $this->password){
+                    if($this->staticSalt == null){
+                        throw new \Exception("No static salt set, please inital model via service manager");
+                    }
+                    if($this->salt == null){
+                        $this->salt = \OnyxSystem\DataFunctions::getSalt();
+                    }
+                    $passwordHash = sha1($this->salt . $password . $this->staticSalt);
+                    $this->password = $passwordHash;
+                }
+            }else{
+                $this->password = $password;
+            }
+        }else{
+            $this->password = null;
         }
-        if($this->salt == null){
-        $this->salt = \OnyxSystem\DataFunctions::getSalt();
-        }
-        $passwordHash = sha1($this->salt . $password . $this->staticSalt);
-        $this->password = $passwordHash;
-        }
+        
     }
 
     /**

@@ -1,5 +1,6 @@
 <h3>Hi <?php echo $this->firstname;?> <?php echo $this->lastname;?></h3>
 <p>A password reset request was received by <?php echo $this->sitename;?>.</p>
 <p>If this was not requested by you please just ignore this email</p>
-<p>Otherwise please <a href="<?php echo $this->siteurl;?>/user/reset-password/<?php echo $this->token;?>">click here</a> to reset your password</p>
+<p>Otherwise please <a href="<?php echo $this->resetLink;?>">click here</a> to reset your password</p>
+<p>Please note this is a one time usable link and will expire</p>
     
