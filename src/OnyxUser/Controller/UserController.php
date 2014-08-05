@@ -248,6 +248,7 @@ class UserController extends AbstractActionController
     }
 
     public function loginAction(){
+        $backto = $this->params()->fromQuery('backto');
         $messages = array();
         $OnyxAcl = $this->getServiceLocator()->get('OnyxAcl');
         $config = $this->getServiceLocator()->get('config');
@@ -259,15 +260,25 @@ class UserController extends AbstractActionController
             $data = $this->request->getPost();           
             
             if($OnyxAcl->authenticate($data)){
-                $data = DataFunctions::objectToArray($OnyxAcl->getIdentity());
-                $this->getUserTable()->updateLogin($data['id']);
-                $this->redirect()->toRoute($config['onyx_acl']['login_route']);
+                $ident = DataFunctions::objectToArray($OnyxAcl->getIdentity());
+                $this->getUserTable()->updateLogin($ident['id']);
+                    if(isset($data['backto'])){
+                       $router = $this->getServiceLocator()->get('Router');                       
+                       if($router->hasRoute($data['backto'])){
+                            $this->redirect()->toRoute($data['backto']);
+                        }else{
+                            $this->redirect()->toRoute($config['onyx_acl']['login_route']);
+                        }
+                    }else{
+                        $this->redirect()->toRoute($config['onyx_acl']['login_route']);
+                    }
+                
             }else{
                 $messages[] = $OnyxAcl->message;
             }  
                     
         }
-        return new ViewModel(array('messages' => $messages));
+        return new ViewModel(array('messages' => $messages, 'backto' => $backto));
     }
 
     public function getUserTable(){
