@@ -37,9 +37,12 @@ class UserController extends AbstractActionController
     {
         $form = $this->_getCreateUserForm();
         $sm = $this->getServiceLocator();
+        
         $user = $sm->get('OnyxUser');        
         $form->bind($user);
         $messages = array();
+        
+        
         
         if ($this->request->isPost()) {
             $postData = $this->request->getPost();
@@ -47,7 +50,7 @@ class UserController extends AbstractActionController
             //Check that the email address exists in the database
             $validator = new \Zend\Validator\Db\NoRecordExists(
                 array(
-                    'table'   => 'user',
+                    'table'   => 'onyx_user',
                     'field'   => 'email',
                     'adapter' => $sm->get('Zend\Db\Adapter\Adapter'),
                 )
@@ -293,7 +296,7 @@ class UserController extends AbstractActionController
 
     protected function _getCreateUserForm()
     {
-        if (!$this->_createUserForm) {
+        if (!$this->_createUserForm) {            
             $this->_setCreateUserForm(
                 $this->getServiceLocator()->get('contentuser_create_user_form')
             );

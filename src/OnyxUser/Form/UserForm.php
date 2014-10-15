@@ -1,11 +1,11 @@
 <?php
 namespace OnyxUser\Form;
 
-use ZfcBase\Form\ProvidesEventsForm;
+use Zend\Form\Form;
 use Zend\InputFilter\InputFilter;
 use Zend\Stdlib\Hydrator\ArraySerializable as ArraySerializable;
 
-class UserForm extends ProvidesEventsForm
+class UserForm extends Form
 {
 
     public function __construct()

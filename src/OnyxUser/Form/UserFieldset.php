@@ -13,7 +13,7 @@ class UserFieldset extends Fieldset implements InputFilterProviderInterface
     public function __construct()
     {
         parent::__construct('User');
-                $this->setHydrator(new ObjectProperty(false))
+                $this->setHydrator(new ArraySerializable(false))
                      ->setObject(new User());
                 $this->setLabel('User');        
                 
@@ -44,7 +44,7 @@ class UserFieldset extends Fieldset implements InputFilterProviderInterface
         
             $this->add(array(
                 'name' => 'password',
-                'type' => 'Zend\Form\Element\Text',
+                'type' => 'Zend\Form\Element\Password',
                 'options' => array(
                     'label' => 'password'
                 ),

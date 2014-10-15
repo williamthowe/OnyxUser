@@ -54,4 +54,11 @@ CREATE TABLE `onyx_user` (
   KEY `search` (`firstname`,`lastname`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
+-- ----------------------------
+--  Records of `onyx_user`
+-- ----------------------------
+BEGIN;
+INSERT INTO `onyx_user` VALUES ('1', null, 'bfec11b8ce6ddac7413bfa457d6de904c3f3220b', '3ef86b4f45392ed3f38ac6cc45b21c92', 'Paul', 'Headington', null, null, 'paul.headington@colensobbdo.co.nz', null, null, null, null, null, null, null, null, 'admin', '1', null, '5d8f2b0dc40c0325d46a1da634833d1c', '2014-10-16 12:06:31', '0', null, '2014-10-15 16:06:46', '2014-10-16 12:06:31');
+COMMIT;
+
 SET FOREIGN_KEY_CHECKS = 1;
