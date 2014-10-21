@@ -58,7 +58,7 @@ CREATE TABLE `onyx_user` (
 --  Records of `onyx_user`
 -- ----------------------------
 BEGIN;
-INSERT INTO `onyx_user` VALUES ('1', null, 'bfec11b8ce6ddac7413bfa457d6de904c3f3220b', '3ef86b4f45392ed3f38ac6cc45b21c92', 'Paul', 'Headington', null, null, 'paul.headington@colensobbdo.co.nz', null, null, null, null, null, null, null, null, 'admin', '1', null, '5d8f2b0dc40c0325d46a1da634833d1c', '2014-10-16 12:06:31', '0', null, '2014-10-15 16:06:46', '2014-10-16 12:06:31');
+INSERT INTO `onyx_user` VALUES ('1', null, '79f550ac59295c078750f00d4a8e96b59ea37913', 'e0483cf8bf1e7756213339b853d1d24c', 'Paul', 'Headington', null, null, 'paul.headington@colensobbdo.co.nz', null, null, null, null, null, null, null, null, 'admin', '1', null, '68616f53a3d2b4001f9e3f750dae658a', '2014-10-16 15:54:19', '1', '2014-10-16 15:54:54', '2014-10-15 19:54:54', '2014-10-16 15:54:19');
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
