@@ -252,7 +252,7 @@ class UserController extends AbstractActionController
 
     public function loginAction(){
         $this->layout('layout/onyx_user_signin');
-        $backto = $this->params()->fromQuery('backto');
+        $backto = $this->params('backto');
         $messages = array();
         $OnyxAcl = $this->getServiceLocator()->get('OnyxAcl');
         $config = $this->getServiceLocator()->get('config');
