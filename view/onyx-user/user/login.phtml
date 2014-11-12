@@ -1,16 +1,39 @@
-<form class="form-signin" role="form" action="" method="POST" enctype="multipart/form-data">
-        <h2 class="form-signin-heading">Please sign in</h2>
-        <input type="email" class="form-control" placeholder="Email address" name="email" id="email" required autofocus>
-        <input type="password" class="form-control" placeholder="Password" name="password" id="password" required>
-        <label class="checkbox">
-          <input type="checkbox" value="remember-me" name="remeber" id="remeber"> Remember me
-        </label>
-        <div class="form-group">
-              <p>Forgot your password? <a href="/user/forgot-password">click here</a></p>
-          </div>
-          <input type="hidden" name="backto" id="backto" value="<?php echo $this->backto;?>"/>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-      </form>
+<form class="form container-fluid" action="/user/login" method="POST" enctype="multipart/form-data">
+    <div class="modal-body">
+        <div class="row">
+            <div class="input-group col-sm-6 col-md-6">
+                <span class="input-group-addon login-icon">@</span>
+                <input type="text" name="email" id="email" required autofocus class="form-control" placeholder="Email">
+            </div>
+
+            <div class="input-group col-sm-6 col-md-6">
+                <span class="input-group-addon fa fa-key login-icon"></span>
+                <input type="password" class="form-control" placeholder="Password" name="password" id="password" required>
+            </div>
+        </div>
+        <input type="hidden" name="backto" id="backto" value="<?php echo $this->backto;?>"/>
+        <div class="row avenir-medium login-error">
+            <div class=" col-sm-6 col-md-6 red-font">
+                <span class="fa fa-times"></span> LOGIN INCORRECT: 3 tries remaining
+            </div>
+             <div class=" col-sm-6 col-md-6">
+                 <a class="aqua-font" href="/user/forgot-password">Forgot your password?</a>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="row">
+            <div class=" col-sm-6 col-md-6 avenir-roman align-left">
+                <input type="checkbox" value="remember-me" name="remeber" id="remeber" /> Remember my email
+            </div>
+            <div class=" col-sm-6 col-md-6 align-right">
+                <button class="btn grey-light avenir-medium more-btn login-cancel" data-dismiss="modal">CANCEL</button>
+                <input class="btn aqua avenir-medium more-btn login-button" type="submit" value="LOGIN" />
+            </div>
+        </div>
+    </div>
+</form>
+
 
 <div class="row">    
     <?php 

@@ -251,7 +251,11 @@ class UserController extends AbstractActionController
     }
 
     public function loginAction(){
-        $this->layout('layout/onyx_user_signin');
+        $id = $this->params('id');
+        if($id != 'ajax'){
+            $this->layout('layout/onyx_user_signin');
+        }
+        
         $backto = $this->params('backto');
         $messages = array();
         $OnyxAcl = $this->getServiceLocator()->get('OnyxAcl');
@@ -282,7 +286,12 @@ class UserController extends AbstractActionController
             }  
                     
         }
-        return new ViewModel(array('messages' => $messages, 'backto' => $backto));
+        $viewModel = new ViewModel(array('messages' => $messages, 'backto' => $backto));
+        if($id == 'ajax'){
+            $viewModel->setTerminal(true);
+        }
+        
+        return $viewModel;
     }
 
     public function getUserTable(){
