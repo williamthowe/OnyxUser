@@ -22,7 +22,7 @@
         <?php $User = $form->get('User'); ?>
         <?php echo $this->formInput($User->get('firstname')); ?>
         <?php echo $this->formRow($User->get('lastname')); ?>
-        <?php echo $this->formRow($User->get('password')->setAttribute('class' , 'test')); ?>
+        <?php echo $this->formPassword($User->get('password')->setAttribute('class' , 'test')); ?>
         <?php echo $this->formRow($User->get('terms')); ?>
         <?php echo $this->formRow($User->get('email')); ?>
         <?php echo $this->formHidden($form->get('csrf')); ?>

@@ -72,7 +72,9 @@ class UserFieldset extends Fieldset implements InputFilterProviderInterface
                 'options' => array(
                     'label' => 'firstname'
                 ),
-                'attributes' => array()
+                'attributes' => array(
+                    'required' => 'required'
+                )
             ));
 
         
