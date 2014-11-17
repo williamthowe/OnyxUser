@@ -20,7 +20,9 @@ class UserController extends AbstractActionController
     protected $eventIdentifier = 'Onyx\Service\EventManger';
     
     public function onDispatch( \Zend\Mvc\MvcEvent $e ){
-        $this->layout('layout/onyx_user');
+        $sm = $this->getServiceLocator();
+        $config = $sm->get('config');
+        $this->layout($config['onyx_user']['layout']);
         
         return parent::onDispatch($e);
     }
@@ -251,11 +253,7 @@ class UserController extends AbstractActionController
     }
 
     public function loginAction(){
-        $id = $this->params('id');
-        if($id != 'ajax'){
-            $this->layout('layout/onyx_user_signin');
-        }
-        
+        $id = $this->params('id'); 
         $backto = $this->params('backto');
         $messages = array();
         $OnyxAcl = $this->getServiceLocator()->get('OnyxAcl');
