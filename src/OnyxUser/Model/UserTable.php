@@ -110,7 +110,7 @@ class UserTable
         	'terms' => $user->terms,
         	'facebookdata' => $user->facebookdata,
         	'token' => $user->token,
-                'tokenexpire' => $user->tokenexpire,    
+            'tokenexpire' => $user->tokenexpire,    
         	'isactive' => $user->isactive,
         	'logindate' => $user->logindate,
         	'lastupdate' => $user->lastupdate,

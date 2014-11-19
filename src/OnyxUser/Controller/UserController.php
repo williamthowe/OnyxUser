@@ -263,8 +263,7 @@ class UserController extends AbstractActionController
             $this->redirect()->toRoute($config['onyx_acl']['login_route']);
         }
         if ($this->request->isPost()) {
-            $data = $this->request->getPost();           
-            
+            $data = $this->request->getPost(); 
             if($OnyxAcl->authenticate($data)){
                 $ident = DataFunctions::objectToArray($OnyxAcl->getIdentity());
                 $this->getUserTable()->updateLogin($ident['id']);

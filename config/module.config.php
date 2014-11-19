@@ -21,7 +21,7 @@ return array(
             'OnyxUser\Controller\User' => 'OnyxUser\Controller\UserController',
         ),
     ),
-        // The following section is new and should be added to your file
+    //TODO limit these as literals so the can be acl controllered
     'router' => array(
         'routes' => array(
             'user' => array(

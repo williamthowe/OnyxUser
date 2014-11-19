@@ -494,32 +494,33 @@ class User
      */
     public function exchangeArray($data)
     {
-        $this->id		= (isset($data["id"])) ? $data["id"] : null;
-        $this->username		= (isset($data["username"])) ? $data["username"] : null;
-        $this->salt		= (isset($data["salt"])) ? $data["salt"] : null;
-        $this->firstname		= (isset($data["firstname"])) ? $data["firstname"] : null;
-        $this->lastname		= (isset($data["lastname"])) ? $data["lastname"] : null;
-        $this->phone		= (isset($data["phone"])) ? $data["phone"] : null;
-        $this->mobile		= (isset($data["mobile"])) ? $data["mobile"] : null;
-        $this->email		= (isset($data["email"])) ? $data["email"] : null;
-        $this->twitter		= (isset($data["twitter"])) ? $data["twitter"] : null;
+       
+        $this->id		= (isset($data["id"])) ? $data["id"] : $this->id;
+        $this->username		= (isset($data["username"])) ? $data["username"] : $this->username;
+        $this->salt		= (isset($data["salt"])) ? $data["salt"] : $this->salt;
+        $this->firstname		= (isset($data["firstname"])) ? $data["firstname"] : $this->firstname;
+        $this->lastname		= (isset($data["lastname"])) ? $data["lastname"] : $this->lastname;
+        $this->phone		= (isset($data["phone"])) ? $data["phone"] : $this->phone;
+        $this->mobile		= (isset($data["mobile"])) ? $data["mobile"] : $this->mobile;
+        $this->email		= (isset($data["email"])) ? $data["email"] : $this->email;
+        $this->twitter		= (isset($data["twitter"])) ? $data["twitter"] : $this->twitter;
         $this->setPassword((isset($data["password"])) ? $data["password"] : null);
-        $this->passwordhint		= (isset($data["passwordhint"])) ? $data["passwordhint"] : null;
-        $this->gender		= (isset($data["gender"])) ? $data["gender"] : null;
-        $this->dateofbirth		= (isset($data["dateofbirth"])) ? $data["dateofbirth"] : null;
-        $this->facebookid		= (isset($data["facebookid"])) ? $data["facebookid"] : null;
-        $this->phoneguid		= (isset($data["phoneguid"])) ? $data["phoneguid"] : null;
-        $this->subscribe		= (isset($data["subscribe"])) ? $data["subscribe"] : null;
-        $this->mobilesubscribe		= (isset($data["mobilesubscribe"])) ? $data["mobilesubscribe"] : null;
-        $this->role		= (isset($data["role"])) ? $data["role"] : null;
-        $this->terms		= (isset($data["terms"])) ? $data["terms"] : null;
-        $this->facebookdata		= (isset($data["facebookdata"])) ? $data["facebookdata"] : null;
-        $this->token		= (isset($data["token"])) ? $data["token"] : null;
-        $this->tokenexpire		= (isset($data["tokenexpire"])) ? $data["tokenexpire"] : null;
-        $this->isactive		= (isset($data["isactive"])) ? $data["isactive"] : null;
-        $this->logindate		= (isset($data["logindate"])) ? $data["logindate"] : null;
-        $this->lastupdate		= (isset($data["lastupdate"])) ? $data["lastupdate"] : null;
-        $this->postdate		= (isset($data["postdate"])) ? $data["postdate"] : null;
+        $this->passwordhint		= (isset($data["passwordhint"])) ? $data["passwordhint"] : $this->passwordhint;
+        $this->gender		= (isset($data["gender"])) ? $data["gender"] : $this->gender;
+        $this->dateofbirth		= (isset($data["dateofbirth"])) ? $data["dateofbirth"] : $this->dateofbirth;
+        $this->facebookid		= (isset($data["facebookid"])) ? $data["facebookid"] : $this->facebookid;
+        $this->phoneguid		= (isset($data["phoneguid"])) ? $data["phoneguid"] : $this->phoneguid;
+        $this->subscribe		= (isset($data["subscribe"])) ? $data["subscribe"] : $this->subscribe;
+        $this->mobilesubscribe		= (isset($data["mobilesubscribe"])) ? $data["mobilesubscribe"] : $this->mobilesubscribe;
+        $this->role		= (isset($data["role"])) ? $data["role"] : $this->role;
+        $this->terms		= (isset($data["terms"])) ? $data["terms"] : $this->terms;
+        $this->facebookdata		= (isset($data["facebookdata"])) ? $data["facebookdata"] : $this->facebookdata;
+        $this->token		= (isset($data["token"])) ? $data["token"] : $this->token;
+        $this->tokenexpire		= (isset($data["tokenexpire"])) ? $data["tokenexpire"] : $this->tokenexpire;
+        $this->isactive		= (isset($data["isactive"])) ? $data["isactive"] : $this->isactive;
+        $this->logindate		= (isset($data["logindate"])) ? $data["logindate"] : $this->logindate;
+        $this->lastupdate		= (isset($data["lastupdate"])) ? $data["lastupdate"] : $this->lastupdate;
+        $this->postdate		= (isset($data["postdate"])) ? $data["postdate"] : $this->postdate;
     }
 
     /**
