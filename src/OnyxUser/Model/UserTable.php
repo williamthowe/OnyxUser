@@ -121,8 +121,9 @@ class UserTable
         
         if ($id == 0) {
         	$data['postdate'] = date('Y-m-d H:i:s');
-                $id = $this->tableGateway->insert($data);
-                $user->id = $id;
+            $this->tableGateway->insert($data);
+        	$id = $this->tableGateway->lastInsertValue;    
+            $user->id = $id;
         	return $id;
         } else {
         	if ($this->getById($id)) {
