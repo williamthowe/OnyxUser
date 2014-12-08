@@ -265,6 +265,7 @@ class UserController extends AbstractActionController
         if ($this->request->isPost()) {
             $data = $this->request->getPost(); 
             if($OnyxAcl->authenticate($data)){
+                
                 $ident = DataFunctions::objectToArray($OnyxAcl->getIdentity());
                 $this->getUserTable()->updateLogin($ident['id']);
                     if(isset($data['backto'])){
