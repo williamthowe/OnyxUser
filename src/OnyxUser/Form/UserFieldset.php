@@ -97,7 +97,6 @@ class UserFieldset extends Fieldset implements InputFilterProviderInterface
                     'label' => 'phone'
                 ),
                 'attributes' => array(
-                    'required' => 'required'
                 )
             ));
 

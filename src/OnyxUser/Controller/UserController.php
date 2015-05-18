@@ -280,7 +280,7 @@ class UserController extends AbstractActionController
                     }
                 
             }else{
-                $messages[] = $OnyxAcl->message;
+                $messages[] = "The email or password you entered is incorrect. Please try again.";
             }  
                     
         }

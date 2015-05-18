@@ -23,8 +23,9 @@ class UserForm extends Form
                 ));
                 $this->add(array(
                     'type' => 'Zend\Form\Element\Csrf',
-                    'name' => 'csrf'
+                    'name' => 'user_csrf'
                 ));
+                
                 $this->add(array(
                     'name' => 'submit',
                     'attributes' => array(

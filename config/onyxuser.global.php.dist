@@ -14,6 +14,7 @@ return array(
         'reset_email_template' => 'onyx-user/email/tpl/reset-email',
         'token_expire' => '-3 hour',
         'default_role' => 'guest',
+        'layout' => 'layout/onyx_user',
     ),
 );
 

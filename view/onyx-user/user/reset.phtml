@@ -1,5 +1,5 @@
 <div class="row">
-    <?php if($this->success){?>
+    <?php if(!$this->success){?>
     <?php if($this->done){?>
     <div class="col-md-12">
         <div class="panel panel-default">
@@ -13,26 +13,43 @@
     </div>
     <?php }else{?>
     <div class="col-md-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Password reset</h3>
+        <div class="modal-header container-fluid">
+            <h2 class="avenir-black aqua-font">Password reset</h2>
+        </div>
+        <form role="form" action="" method="POST" class="form container-fluid" enctype="multipart/form-data">
+        <div class="modal-body">
+            <p>To reset your password please enter a new password here</p>
+            
+            <div class="row">
+                
+                <div class="input-group col-sm-6 col-md-6">
+                    <span class="input-group-addon fa fa-key login-icon grey"></span>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required>
+                </div>  
             </div>
-            <div class="panel-body">
-                <p>To reset your password please enter a new password here</p>
-                <form role="form" action="" method="POST" enctype="multipart/form-data">
-                <div class="form-group">
-                  <label for="password">Password</label>
-                  <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required>
+            <div class="row">
+                <div class="input-group col-sm-6 col-md-6">
+                    <span class="input-group-addon fa fa-key login-icon grey"></span>
+                    <input type="password" class="form-control" id="password-repeat" name="password-repeat" placeholder="Repeat password" required>
+                </div>            
+            </div>
+            <div class="row avenir-medium login-error">
+                <div class=" col-sm-6 col-md-6 red-font">
+                    <?php if($this->message){?><span class="fa fa-times"></span><?php echo $this->message;?><?php }?>
+                </div>             
+            </div>
+            
+        </div>
+        <div class="modal-footer">
+            <div class="row">
+                <div class=" col-sm-6 col-md-6 align-right">
+                    <button type="submit" class="btn btn-default">Reset Password</button>
                 </div>
-                <div class="form-group">
-                  <label for="password-repeat">Password repeat</label>
-                  <input type="password" class="form-control" id="password-repeat" name="password-repeat" placeholder="Repeat password" required>
-                </div>
-                <button type="submit" class="btn btn-default">Reset Password</button>
-                <p><?php echo $this->message;?></p>
-                </form>
             </div>
         </div>
+        </form>
+                
+
     </div>    
     <?php }?>
     <?php }else{?>
