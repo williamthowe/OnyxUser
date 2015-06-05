@@ -26,7 +26,7 @@
         <?php echo $this->formRow($User->get('terms')); ?>
         <?php echo $this->formRow($User->get('email')); ?>
         <?php echo $this->formRow($User->get('role')); ?>
-        <?php echo $this->formHidden($form->get('csrf')); ?>
+        <?php echo $this->formHidden($form->get('user_csrf')); ?>
         <?php echo $this->formInput($form->get('submit')); ?>
         <?php echo $this->form()->closeTag($form); ?>
     </div>
