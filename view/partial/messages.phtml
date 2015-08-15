@@ -1,0 +1,109 @@
+<?php // display flash messages!
+/*
+ * Usage display
+ * 
+ * GREEN
+ * $this->flashMessenger()->addMessage('message test.');
+ * $this->flashMessenger()->addSuccessMessage('success message test.');
+ * BLUE
+ * $this->flashMessenger()->addInfoMessage('Info message test.');
+ * YELLOW/ORANGE
+ * $this->flashMessenger()->addWarningMessage('warning message test.');
+ * RED
+ * $this->flashMessenger()->addErrorMessage('error message test.');
+ */
+
+    $flashMessenger = $this->flashMessenger();
+    if ($flashMessenger->hasMessages() || $flashMessenger->hasSuccessMessages()) {
+        echo '<div class="alert alert-success green" role="alert"><ul>';
+        if ($flashMessenger->hasMessages())
+            foreach($flashMessenger->getMessages() as $message)
+                echo '<li>'.$message.'</li>';
+        if( $flashMessenger->hasSuccessMessages())
+            foreach($flashMessenger->getSuccessMessages() as $message)
+                echo '<li>'.$message.'</li>';
+        echo '</ul></div>';
+    }
+
+    if ($flashMessenger->hasInfoMessages()) {
+        echo '<div class="alert alert-info yellow" role="alert"><ul>';
+        foreach($flashMessenger->getInfoMessages() as $message)
+            echo '<li>'.$message.'</li>';
+        echo '</ul></div>';
+    }
+
+    if ($flashMessenger->hasWarningMessages()) {
+        echo '<div class="alert alert-warning orange" role="alert"><ul>';
+            foreach($flashMessenger->getWarningMessages() as $message)
+                echo '<li>'.$message.'</li>';
+        echo '</ul></div>';
+    }
+
+    if ($flashMessenger->hasErrorMessages()) {
+        echo '<div class="alert alert-danger red" role="alert"><ul>';
+            foreach($flashMessenger->getErrorMessages() as $message)
+                echo '<li>'.$message.'</li>';
+        echo '</ul></div>';
+    }
+    
+    // manual messages for forms
+    if(isset($this->messages) && is_array($this->messages) && count($this->messages) > 0 ){
+        // catch settings
+        if(isset($this->messages['settings']['status'])){
+            switch($this->messages['settings']['status']){
+                case 'error':
+                    echo '<div class="alert alert-danger red" role="alert"><h4>Errors:</h4>';
+                    break;
+                case 'info':
+                    echo '<div class="alert alert-info yellow" role="alert">';
+                    break;
+                case 'success':
+                    echo '<div class="alert alert-success green" role="alert">';
+                    break;
+                default:
+                    echo '<div class="alert alert-warning orange" role="alert">';
+                    break;
+            }
+        }else{
+            echo '<div class="alert alert-warning orange" role="alert">';
+        }
+
+//        var_dump($this->messages);
+        echo renderMessageArray($this->messages);
+        echo '</div>';
+
+    }
+    
+    
+    function renderMessageArray($array) {
+        
+        // catch ignore
+        $ignore = false;
+        if(isset($array['settings']['ignore']))
+            $ignore = $array['settings']['ignore'];
+        if(isset($array['settings']))
+            unset($array['settings']);
+
+//        $html = '<ul>';
+        if(is_array($array)) {
+            foreach($array as $name => $messagelist){
+
+                if($name == $ignore) {
+                    $html .= renderMessageArray($messagelist); // skip a level!
+                }else {
+                    if(is_array($messagelist)) {
+                        $html .= ''.ucwords(str_replace('_', ' ', $name)).':<br/>&nbsp;&nbsp;'.renderMessageArray($messagelist).'<br/>';
+                    } else {
+                        $html .= '&nbsp;&nbsp;'.$messagelist.'<br/>';
+                    }
+                }
+            }
+        }else{
+            $html = '&nbsp;&nbsp;&nbsp;&nbsp;'.$array.'<br/>';
+        }
+//        $html .= '</ul>';
+        
+        return $html;
+    }
+    
+?>

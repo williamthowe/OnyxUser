@@ -255,7 +255,6 @@ class UserController extends AbstractActionController
     public function loginAction(){
         $id = $this->params('id'); 
         $backto = $this->params('backto');
-        $messages = array();
         $OnyxAcl = $this->getServiceLocator()->get('OnyxAcl');
         $config = $this->getServiceLocator()->get('config');
         if($OnyxAcl->checkAuth()){
@@ -280,11 +279,11 @@ class UserController extends AbstractActionController
                     }
                 
             }else{
-                $messages[] = "The email or password you entered is incorrect. Please try again.";
+                $this->flashMessenger()->addInfoMessage('The email or password you entered is incorrect. Please try again.');
             }  
                     
         }
-        $viewModel = new ViewModel(array('messages' => $messages, 'backto' => $backto));
+        $viewModel = new ViewModel(array('backto' => $backto));
         if($id == 'ajax'){
             $viewModel->setTerminal(true);
         }
