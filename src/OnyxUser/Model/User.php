@@ -103,6 +103,9 @@ class User
                     'name' => 'not_empty'
                 ),
                 array(
+                    'name' => 'int'
+                ),
+                array(
                     'name' => 'string_length',
                     'options' => array(
                         'min' => 1
@@ -113,6 +116,10 @@ class User
         'username' => array(
             'required' => false,
             'name' => 'username',
+            'filters' => array(
+                array('name' => 'StripTags'),
+                array('name' => 'StringTrim'),
+            ),
             'validators' => array(
                 array(
                     'name' => 'not_empty'
@@ -128,6 +135,9 @@ class User
         'password' => array(
             'required' => false,
             'name' => 'password',
+            'filters' => array(
+                array('name' => 'StringTrim'),
+            ),
             'validators' => array(
                 array(
                     'name' => 'not_empty'
@@ -143,6 +153,10 @@ class User
         'salt' => array(
             'required' => false,
             'name' => 'salt',
+            'filters' => array(
+                array('name' => 'StripTags'),
+                array('name' => 'StringTrim'),
+            ),
             'validators' => array(
                 array(
                     'name' => 'not_empty'
@@ -158,6 +172,10 @@ class User
         'firstname' => array(
             'required' => false,
             'name' => 'firstname',
+            'filters' => array(
+                array('name' => 'StripTags'),
+                array('name' => 'StringTrim'),
+            ),
             'validators' => array(
                 array(
                     'name' => 'not_empty'
@@ -173,6 +191,10 @@ class User
         'lastname' => array(
             'required' => false,
             'name' => 'lastname',
+            'filters' => array(
+                array('name' => 'StripTags'),
+                array('name' => 'StringTrim'),
+            ),
             'validators' => array(
                 array(
                     'name' => 'not_empty'
@@ -188,9 +210,16 @@ class User
         'phone' => array(
             'required' => false,
             'name' => 'phone',
+            'filters' => array(
+                array('name' => 'StripTags'),
+                array('name' => 'StringTrim'),
+            ),
             'validators' => array(
                 array(
                     'name' => 'not_empty'
+                ),
+                array(
+                    'name' => 'int'
                 ),
                 array(
                     'name' => 'string_length',
@@ -203,9 +232,16 @@ class User
         'mobile' => array(
             'required' => false,
             'name' => 'mobile',
+            'filters' => array(
+                array('name' => 'StripTags'),
+                array('name' => 'StringTrim'),
+            ),
             'validators' => array(
                 array(
                     'name' => 'not_empty'
+                ),
+                array(
+                    'name' => 'int'
                 ),
                 array(
                     'name' => 'string_length',
@@ -218,6 +254,10 @@ class User
         'email' => array(
             'required' => false,
             'name' => 'email',
+            'filters' => array(
+                array('name' => 'StripTags'),
+                array('name' => 'StringTrim'),
+            ),
             'validators' => array(
                 array(
                     'name' => 'not_empty'
@@ -248,6 +288,10 @@ class User
         'passwordhint' => array(
             'required' => false,
             'name' => 'passwordhint',
+            'filters' => array(
+                array('name' => 'StripTags'),
+                array('name' => 'StringTrim'),
+            ),
             'validators' => array(
                 array(
                     'name' => 'not_empty'
@@ -263,6 +307,10 @@ class User
         'gender' => array(
             'required' => false,
             'name' => 'gender',
+            'filters' => array(
+                array('name' => 'StripTags'),
+                array('name' => 'StringTrim'),
+            ),
             'validators' => array(
                 array(
                     'name' => 'not_empty'
@@ -320,6 +368,9 @@ class User
                     'name' => 'not_empty'
                 ),
                 array(
+                    'name' => 'int'
+                ),
+                array(
                     'name' => 'string_length',
                     'options' => array(
                         'min' => 1
@@ -335,6 +386,9 @@ class User
                     'name' => 'not_empty'
                 ),
                 array(
+                    'name' => 'int'
+                ),
+                array(
                     'name' => 'string_length',
                     'options' => array(
                         'min' => 1
@@ -345,6 +399,10 @@ class User
         'role' => array(
             'required' => false,
             'name' => 'role',
+            'filters' => array(
+                array('name' => 'StripTags'),
+                array('name' => 'StringTrim'),
+            ),
             'validators' => array(
                 array(
                     'name' => 'not_empty'
@@ -358,10 +416,12 @@ class User
             )
         ),
         'terms' => array(
-            'required' => false,
+            'required' => true,
             'name' => 'terms',
             'validators' => array(
-                
+                array(
+                    'name' => 'int'
+                ),
             )
         ),
         'facebookdata' => array(
@@ -409,6 +469,9 @@ class User
                     'name' => 'not_empty'
                 ),
                 array(
+                    'name' => 'int'
+                ),
+                array(
                     'name' => 'string_length',
                     'options' => array(
                         'min' => 1
@@ -436,7 +499,166 @@ class User
             'validators' => array(
                 
             )
-        )
+        ),
+        'country' => array(
+            'required' => true,
+            'name' => 'country',
+            'filters' => array(
+                array('name' => 'StripTags'),
+                array('name' => 'StringTrim'),
+            ),
+            'validators' => array(
+                array(
+                    'name' =>'NotEmpty', 
+                      'options' => array(
+                          'messages' => array(
+                            \Zend\Validator\NotEmpty::IS_EMPTY => 'Please select your counrty' 
+                        ),
+                    ),
+                ),
+                array(
+                    'name' => 'StringLength',
+                    'options' => array(
+                        'encoding' => 'UTF-8',
+                        'max' => 200
+                    ),
+                ),
+                array(
+                    'name'    => 'InArray',
+                    'options' => array(
+                        'haystack' => array(2,3),
+                        'messages' => array(
+                            \Zend\Validator\InArray::NOT_IN_ARRAY => ''  
+                        ),
+                    ),
+                ),
+                
+            ),
+        ),
+        'region' => array(
+            'required' => false,
+            'name' => 'region',
+            'filters' => array(
+                array('name' => 'StripTags'),
+                array('name' => 'StringTrim'),
+            ),
+            'validators' => array(
+                array(
+                    'name' => 'StringLength',
+                    'options' => array(
+                        'encoding' => 'UTF-8',
+                        'min' => 1,
+                        'max' => 200,
+                    ),
+                ),
+            )
+        ),
+        'industry' => array(
+            'required' => true,
+            'name' => 'industry',
+            'filters' => array(
+                array('name' => 'StripTags'),
+                array('name' => 'StringTrim'),
+            ),
+            'validators' => array(
+                array(
+                    'name' =>'NotEmpty', 
+                      'options' => array(
+                          'messages' => array(
+                            \Zend\Validator\NotEmpty::IS_EMPTY => 'Please select your industry', 
+                        ),
+                    ),
+                ),
+                array(
+                    'name' => 'StringLength',
+                    'options' => array(
+                        'encoding' => 'UTF-8',
+                        'max' => 200
+                    ),
+                ),
+                array(
+                    'name'    => 'InArray',
+                    'options' => array(
+                        'haystack' => array(2,3),
+                        'messages' => array(
+                            \Zend\Validator\InArray::NOT_IN_ARRAY => ''  
+                        ),
+                    ),
+                ),
+            )
+        ),
+        'regions-AUS' => array(
+            'required' => false,
+            'name' => 'region',
+            'filters' => array(
+                array('name' => 'StripTags'),
+                array('name' => 'StringTrim'),
+            ),
+            'validators' => array(
+                array(
+                    'name' => 'StringLength',
+                    'options' => array(
+                        'encoding' => 'UTF-8',
+                        'min' => 1,
+                        'max' => 200,
+                    ),
+                ),
+            )
+        ),
+        'regions-GBR' => array(
+            'required' => false,
+            'name' => 'region',
+            'filters' => array(
+                array('name' => 'StripTags'),
+                array('name' => 'StringTrim'),
+            ),
+            'validators' => array(
+                array(
+                    'name' => 'StringLength',
+                    'options' => array(
+                        'encoding' => 'UTF-8',
+                        'min' => 1,
+                        'max' => 200,
+                    ),
+                ),
+            )
+        ),
+        'regions-NZL' => array(
+            'required' => false,
+            'name' => 'region',
+            'filters' => array(
+                array('name' => 'StripTags'),
+                array('name' => 'StringTrim'),
+            ),
+            'validators' => array(
+                array(
+                    'name' => 'StringLength',
+                    'options' => array(
+                        'encoding' => 'UTF-8',
+                        'min' => 1,
+                        'max' => 200,
+                    ),
+                ),
+            )
+        ),
+        'regions-USA' => array(
+            'required' => false,
+            'name' => 'region',
+            'filters' => array(
+                array('name' => 'StripTags'),
+                array('name' => 'StringTrim'),
+            ),
+            'validators' => array(
+                array(
+                    'name' => 'StringLength',
+                    'options' => array(
+                        'encoding' => 'UTF-8',
+                        'min' => 1,
+                        'max' => 200,
+                    ),
+                ),
+            )
+        ),
     );
 
     private $staticSalt = null;
