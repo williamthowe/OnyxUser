@@ -82,7 +82,14 @@ class UserController extends AbstractActionController
                     $this->getUserTable()->save($user);
                     $this->getEventManager()->trigger('newUserAdded', null, $postData);
                 }catch(\Exception $e){
-                    $this->getEventManager()->trigger('logError', null, array("name" => "Error saving user -> OU-UC-ADD01", "message" => $e->getMessage(), "data" => $postData));
+                    $this->getEventManager()->trigger('logError', null, array(
+                        "name" => "Error saving user -> OU-UC-ADD01", 
+                        "message" => $e->getMessage(), 
+                        "data" => $postData, 
+                        "params" => array('REMOTE_ADDR' => $_SERVER['REMOTE_ADDR']),
+                        'controller' => get_class($this),
+                        'action' => __FUNCTION__
+                        ));
                 }
                 
                 $this->renderer = $this->getServiceLocator()->get('ViewRenderer');  
@@ -199,7 +206,14 @@ class UserController extends AbstractActionController
                     $this->getUserTable()->save($user);
                     $this->getEventManager()->trigger('userEditied', null, $postData);
                 }catch(Exception $e){
-                    $this->getEventManager()->trigger('logError', null, array("name" => "Error saving user -> OU-UC-EDIT01", "message" => $e->getMessage(), "data" => $postData));
+                    $this->getEventManager()->trigger('logError', null, array(
+                        "name" => "Error saving user -> OU-UC-EDIT01", 
+                        "message" => $e->getMessage(), 
+                        "data" => $postData, 
+                        "params" => array('REMOTE_ADDR' => $_SERVER['REMOTE_ADDR']),
+                        'controller' => get_class($this),
+                        'action' => __FUNCTION__
+                        ));
                 }
                 return $this->redirect()->toUrl('/user/success');
             }
@@ -255,6 +269,7 @@ class UserController extends AbstractActionController
     public function loginAction(){
         $id = $this->params('id'); 
         $backto = $this->params('backto');
+        $messages = array();
         $OnyxAcl = $this->getServiceLocator()->get('OnyxAcl');
         $config = $this->getServiceLocator()->get('config');
         if($OnyxAcl->checkAuth()){
@@ -279,11 +294,11 @@ class UserController extends AbstractActionController
                     }
                 
             }else{
-                $this->flashMessenger()->addInfoMessage('The email or password you entered is incorrect. Please try again.');
+                $messages[] = "The email or password you entered is incorrect. Please try again.";
             }  
                     
         }
-        $viewModel = new ViewModel(array('backto' => $backto));
+        $viewModel = new ViewModel(array('messages' => $messages, 'backto' => $backto));
         if($id == 'ajax'){
             $viewModel->setTerminal(true);
         }
