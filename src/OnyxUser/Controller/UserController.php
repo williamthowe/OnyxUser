@@ -294,11 +294,11 @@ class UserController extends AbstractActionController
                     }
                 
             }else{
-                $messages[] = "The email or password you entered is incorrect. Please try again.";
+                $this->flashMessenger()->addInfoMessage('The email or password you entered is incorrect. Please try again.');
             }  
                     
         }
-        $viewModel = new ViewModel(array('messages' => $messages, 'backto' => $backto));
+        $viewModel = new ViewModel(array('backto' => $backto));
         if($id == 'ajax'){
             $viewModel->setTerminal(true);
         }
