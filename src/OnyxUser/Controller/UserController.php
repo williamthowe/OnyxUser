@@ -294,7 +294,9 @@ class UserController extends AbstractActionController
                     }
                 
             }else{
+                $messages['settings']['status'] = 'error';
                 if($data->do_not_fill_me_in !== ''){
+                    
                     $messages[] = 'Please don\'t fill in the "do_not_fill_me_in" field.';
                 }else{
                     $messages[] = 'The email or password you entered is incorrect. Please try again.';
