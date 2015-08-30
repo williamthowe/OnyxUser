@@ -271,13 +271,14 @@ class UserController extends AbstractActionController
         $backto = $this->params('backto');
         $OnyxAcl = $this->getServiceLocator()->get('OnyxAcl');
         $config = $this->getServiceLocator()->get('config');
+        $messages = [];
         if($OnyxAcl->checkAuth()){
             // logged in redirect to where wanted              
             $this->redirect()->toRoute($config['onyx_acl']['login_route']);
         }
         if ($this->request->isPost()) {
             $data = $this->request->getPost(); 
-            if($OnyxAcl->authenticate($data)){
+            if($OnyxAcl->authenticate($data) && $data->do_not_fill_me_in === ''){
                 
                 $ident = DataFunctions::objectToArray($OnyxAcl->getIdentity());
                 $this->getUserTable()->updateLogin($ident['id']);
@@ -293,11 +294,14 @@ class UserController extends AbstractActionController
                     }
                 
             }else{
-                $this->flashMessenger()->addInfoMessage('The email or password you entered is incorrect. Please try again.');
-            }  
-                    
+                if($data->do_not_fill_me_in !== ''){
+                    $messages[] = 'Please don\'t fill in the "do_not_fill_me_in" field.';
+                }else{
+                    $messages[] = 'The email or password you entered is incorrect. Please try again.';
+                } 
+            }     
         }
-        $viewModel = new ViewModel(array('backto' => $backto));
+        $viewModel = new ViewModel(array('messages' => $messages, 'backto' => $backto));
         if($id == 'ajax'){
             $viewModel->setTerminal(true);
         }
