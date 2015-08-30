@@ -143,9 +143,9 @@ class User
                     'name' => 'not_empty'
                 ),
                 array(
-                    'name' => 'string_length',
+                    'name' => 'stringLength',
                     'options' => array(
-                        'min' => 3
+                        'min' => 6
                     )
                 )
             )
@@ -217,9 +217,6 @@ class User
             'validators' => array(
                 array(
                     'name' => 'not_empty'
-                ),
-                array(
-                    'name' => 'int'
                 ),
                 array(
                     'name' => 'string_length',
@@ -416,7 +413,7 @@ class User
             )
         ),
         'terms' => array(
-            'required' => true,
+            'required' => false,
             'name' => 'terms',
             'validators' => array(
                 array(
@@ -501,7 +498,7 @@ class User
             )
         ),
         'country' => array(
-            'required' => true,
+            'required' => false,
             'name' => 'country',
             'filters' => array(
                 array('name' => 'StripTags'),
@@ -520,19 +517,12 @@ class User
                     'name' => 'StringLength',
                     'options' => array(
                         'encoding' => 'UTF-8',
-                        'max' => 200
-                    ),
-                ),
-                array(
-                    'name'    => 'InArray',
-                    'options' => array(
-                        'haystack' => array(2,3),
+                        'max' => 200,
                         'messages' => array(
-                            \Zend\Validator\InArray::NOT_IN_ARRAY => ''  
+                            \Zend\Validator\StringLength::INVALID => ''  
                         ),
                     ),
                 ),
-                
             ),
         ),
         'region' => array(
@@ -554,7 +544,7 @@ class User
             )
         ),
         'industry' => array(
-            'required' => true,
+            'required' => false,
             'name' => 'industry',
             'filters' => array(
                 array('name' => 'StripTags'),
@@ -573,15 +563,9 @@ class User
                     'name' => 'StringLength',
                     'options' => array(
                         'encoding' => 'UTF-8',
-                        'max' => 200
-                    ),
-                ),
-                array(
-                    'name'    => 'InArray',
-                    'options' => array(
-                        'haystack' => array(2,3),
+                        'max' => 200,
                         'messages' => array(
-                            \Zend\Validator\InArray::NOT_IN_ARRAY => ''  
+                            \Zend\Validator\StringLength::INVALID => ''  
                         ),
                     ),
                 ),

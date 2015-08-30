@@ -317,7 +317,6 @@ class UserFieldset extends Fieldset implements InputFilterProviderInterface
             ));
             
             $this->add(array(
-                'required' => true,
                 'name' => 'country',
                 'type' => 'Zend\Form\Element\Select',
                 'options' => array(
