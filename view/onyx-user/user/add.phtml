@@ -1,20 +1,6 @@
 <div class="row">
     
-    <?php 
-    if(is_array($this->messages)){         
-        $messageBody = '<ul>';
-        foreach($this->messages as $name => $messagelist){
-            $text = '';
-            foreach($messagelist as $message){
-                $text .= $message . "<br/>";
-            }
-            $messageBody .= '<li>'.$name . ' - ' . $text.'</li>';
-        }  
-        $messageBody .= '</ul>';
-        
-    ?>
-    <div class="col-md-12"><?php echo $messageBody; ?></div>
-    <?php }?>
+    <?php echo $this->partial('partial/userMessages.phtml')?>
    
     <div class="col-md-12">
         <?php $form->prepare(); $form->setAttribute('class', 'test'); ?>
