@@ -57,6 +57,10 @@ class User
     public $mobile = null;
 
     public $email = null;
+    
+    public $business_name = null;
+    
+    public $address = null;
 
     public $twitter = null;
 
@@ -643,6 +647,69 @@ class User
                 ),
             )
         ),
+        'business_name' => array(
+            'required' => false,
+            'name' => 'name',
+            'filters' => array(
+                array('name' => 'StripTags'),
+                array('name' => 'StringTrim'),
+            ),
+            'validators' => array(
+                array(
+                    'name' => 'not_empty'
+                ),
+                array(
+                    'name' => 'StringLength',
+                    'options' => array(
+                        'encoding' => 'UTF-8',
+                        'min' => 1,
+                        'max' => 100,
+                    ),
+                )
+            )
+        ),
+        'address' => array(
+            'required' => false,
+            'name' => 'address',
+            'filters' => array(
+                array('name' => 'StripTags'),
+                array('name' => 'StringTrim'),
+            ),
+            'validators' => array(
+                array(
+                    'name' => 'not_empty'
+                ),
+                array(
+                    'name' => 'StringLength',
+                    'options' => array(
+                        'encoding' => 'UTF-8',
+                        'min' => 1,
+                        'max' => 300,
+                    ),
+                ),
+            )
+        ),
+        'business_name' => array(
+            'required' => false,
+            'name' => 'name',
+            'filters' => array(
+                array('name' => 'StripTags'),
+                array('name' => 'StringTrim'),
+            ),
+            'validators' => array(
+                array(
+                    'name' => 'not_empty'
+                ),
+                array(
+                    'name' => 'StringLength',
+                    'options' => array(
+                        'encoding' => 'UTF-8',
+                        'min' => 1,
+                        'max' => 100,
+                    ),
+                )
+            )
+        ),
     );
 
     private $staticSalt = null;
@@ -709,6 +776,8 @@ class User
         $this->phone		= (isset($data["phone"])) ? $data["phone"] : $this->phone;
         $this->mobile		= (isset($data["mobile"])) ? $data["mobile"] : $this->mobile;
         $this->email		= (isset($data["email"])) ? $data["email"] : $this->email;
+        $this->business_name = (isset($data["business_name"])) ? $data["business_name"] : $this->business_name;
+        $this->address		= (isset($data["address"])) ? $data["address"] : $this->address;
         $this->twitter		= (isset($data["twitter"])) ? $data["twitter"] : $this->twitter;
         $this->setPassword((isset($data["password"])) ? $data["password"] : null);
         $this->passwordhint		= (isset($data["passwordhint"])) ? $data["passwordhint"] : $this->passwordhint;

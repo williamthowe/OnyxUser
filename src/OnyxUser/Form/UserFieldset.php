@@ -123,7 +123,30 @@ class UserFieldset extends Fieldset implements InputFilterProviderInterface
                     'required' => 'required'
                 )
             ));
-
+            
+            $this->add(array(
+                'name' => 'address',
+                'type' => 'Zend\Form\Element\Textarea',
+                'options' => array(
+                    'label' => 'Office Location'
+                ),
+                'attributes' => array(                   
+                    'class' => 'form-control',
+                    'placeholder' => 'Office Location'
+                )
+            ));
+            
+            $this->add(array(
+                'name' => 'business_name',
+                'type' => 'Zend\Form\Element\Text',
+                'options' => array(
+                    'label' => 'business_name'
+                ),
+                'attributes' => array(
+                    'class' => 'form-control',
+                    'placeholder' => 'Name'
+                )
+            ));
         
             $this->add(array(
                 'name' => 'twitter',
@@ -320,8 +343,8 @@ class UserFieldset extends Fieldset implements InputFilterProviderInterface
                 'name' => 'country',
                 'type' => 'Zend\Form\Element\Select',
                 'options' => array(
-                    'label' => 'Business location',
-                    'empty_option' => 'Business location',
+                    'label' => 'Country',
+                    'empty_option' => 'Country',
                     'value_options' => array(
                             'AFG' => 'Afghanistan',
                             'ALB' => 'Albania',
@@ -552,7 +575,7 @@ class UserFieldset extends Fieldset implements InputFilterProviderInterface
                 ),
                 'attributes' => array(
                     'class' => 'form-control',
-                    'placeholder' => 'Business location',
+                    'placeholder' => 'Country',
                     'id' => 'country'
                 )
             ));

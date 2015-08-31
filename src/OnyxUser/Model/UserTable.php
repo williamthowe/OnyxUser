@@ -98,6 +98,8 @@ class UserTable
         	'phone' => $user->phone,
         	'mobile' => $user->mobile,
         	'email' => $user->email,
+//        	'business_name' => $user->business_name, // held in oganisation
+//        	'address' => $user->address, // held in oganisation
         	'twitter' => $user->twitter,
         	'passwordhint' => $user->passwordhint,
         	'gender' => $user->gender,
