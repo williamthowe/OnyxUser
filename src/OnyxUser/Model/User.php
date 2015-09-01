@@ -104,7 +104,7 @@ class User
             'name' => 'id',
             'validators' => array(
                 array(
-                    'name' => 'not_empty'
+                    'name' => 'notEmpty'
                 ),
                 array(
                     'name' => 'int'
@@ -126,7 +126,7 @@ class User
             ),
             'validators' => array(
                 array(
-                    'name' => 'not_empty'
+                    'name' => 'notEmpty'
                 ),
                 array(
                     'name' => 'string_length',
@@ -144,7 +144,7 @@ class User
             ),
             'validators' => array(
                 array(
-                    'name' => 'not_empty'
+                    'name' => 'notEmpty'
                 ),
                 array(
                     'name' => 'stringLength',
@@ -163,7 +163,7 @@ class User
             ),
             'validators' => array(
                 array(
-                    'name' => 'not_empty'
+                    'name' => 'notEmpty'
                 ),
                 array(
                     'name' => 'string_length',
@@ -174,7 +174,7 @@ class User
             )
         ),
         'firstname' => array(
-            'required' => false,
+            'required' => true,
             'name' => 'firstname',
             'filters' => array(
                 array('name' => 'StripTags'),
@@ -182,7 +182,7 @@ class User
             ),
             'validators' => array(
                 array(
-                    'name' => 'not_empty'
+                    'name' => 'notEmpty'
                 ),
                 array(
                     'name' => 'string_length',
@@ -193,7 +193,7 @@ class User
             )
         ),
         'lastname' => array(
-            'required' => false,
+            'required' => true,
             'name' => 'lastname',
             'filters' => array(
                 array('name' => 'StripTags'),
@@ -201,7 +201,7 @@ class User
             ),
             'validators' => array(
                 array(
-                    'name' => 'not_empty'
+                    'name' => 'notEmpty'
                 ),
                 array(
                     'name' => 'string_length',
@@ -220,7 +220,7 @@ class User
             ),
             'validators' => array(
                 array(
-                    'name' => 'not_empty'
+                    'name' => 'notEmpty'
                 ),
                 array(
                     'name' => 'string_length',
@@ -239,7 +239,7 @@ class User
             ),
             'validators' => array(
                 array(
-                    'name' => 'not_empty'
+                    'name' => 'notEmpty'
                 ),
                 array(
                     'name' => 'int'
@@ -253,7 +253,7 @@ class User
             )
         ),
         'email' => array(
-            'required' => false,
+            'required' => true,
             'name' => 'email',
             'filters' => array(
                 array('name' => 'StripTags'),
@@ -261,12 +261,27 @@ class User
             ),
             'validators' => array(
                 array(
-                    'name' => 'not_empty'
+                    'name' => 'notEmpty'
+                ),
+                array (
+                    'name' => 'regex',
+                    'options' => array(
+                        'pattern'=>'/^[a-zA-Z0-9.!#$%&\'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/',
+                        'messages' => array(
+                            'regexInvalid'   => "Invalid type given, value should be string, integer or float",
+                            'regexNotMatch' => "Email address doesn't look like an email, please check it and try again",
+                            'regexErrorous'  => "There was an internal error while using the pattern '%pattern%'"
+                        )
+                    ),
+                    'break_chain_on_failure' => true
                 ),
                 array(
                     'name' => 'email_address',
                     'options' => array(
                         'allow' => \Zend\Validator\Hostname::ALLOW_DNS,
+                        'messages' => array(
+                            \Zend\Validator\EmailAddress::INVALID_FORMAT => 'Email address doesn\'t appear to be valid.', 
+                        ) 
                     )
                 ),                
             )
@@ -276,7 +291,7 @@ class User
             'name' => 'twitter',
             'validators' => array(
                 array(
-                    'name' => 'not_empty'
+                    'name' => 'notEmpty'
                 ),
                 array(
                     'name' => 'string_length',
@@ -295,7 +310,7 @@ class User
             ),
             'validators' => array(
                 array(
-                    'name' => 'not_empty'
+                    'name' => 'notEmpty'
                 ),
                 array(
                     'name' => 'string_length',
@@ -314,7 +329,7 @@ class User
             ),
             'validators' => array(
                 array(
-                    'name' => 'not_empty'
+                    'name' => 'notEmpty'
                 ),
                 array(
                     'name' => 'string_length',
@@ -336,7 +351,7 @@ class User
             'name' => 'facebookid',
             'validators' => array(
                 array(
-                    'name' => 'not_empty'
+                    'name' => 'notEmpty'
                 ),
                 array(
                     'name' => 'string_length',
@@ -351,7 +366,7 @@ class User
             'name' => 'phoneguid',
             'validators' => array(
                 array(
-                    'name' => 'not_empty'
+                    'name' => 'notEmpty'
                 ),
                 array(
                     'name' => 'string_length',
@@ -366,7 +381,7 @@ class User
             'name' => 'subscribe',
             'validators' => array(
                 array(
-                    'name' => 'not_empty'
+                    'name' => 'notEmpty'
                 ),
                 array(
                     'name' => 'int'
@@ -384,7 +399,7 @@ class User
             'name' => 'mobilesubscribe',
             'validators' => array(
                 array(
-                    'name' => 'not_empty'
+                    'name' => 'notEmpty'
                 ),
                 array(
                     'name' => 'int'
@@ -406,7 +421,7 @@ class User
             ),
             'validators' => array(
                 array(
-                    'name' => 'not_empty'
+                    'name' => 'notEmpty'
                 ),
                 array(
                     'name' => 'string_length',
@@ -430,7 +445,7 @@ class User
             'name' => 'facebookdata',
             'validators' => array(
                 array(
-                    'name' => 'not_empty'
+                    'name' => 'notEmpty'
                 ),
                 array(
                     'name' => 'string_length',
@@ -445,7 +460,7 @@ class User
             'name' => 'token',
             'validators' => array(
                 array(
-                    'name' => 'not_empty'
+                    'name' => 'notEmpty'
                 ),
                 array(
                     'name' => 'string_length',
@@ -467,7 +482,7 @@ class User
             'name' => 'isactive',
             'validators' => array(
                 array(
-                    'name' => 'not_empty'
+                    'name' => 'notEmpty'
                 ),
                 array(
                     'name' => 'int'
@@ -656,7 +671,7 @@ class User
             ),
             'validators' => array(
                 array(
-                    'name' => 'not_empty'
+                    'name' => 'notEmpty'
                 ),
                 array(
                     'name' => 'StringLength',
@@ -677,7 +692,7 @@ class User
             ),
             'validators' => array(
                 array(
-                    'name' => 'not_empty'
+                    'name' => 'notEmpty'
                 ),
                 array(
                     'name' => 'StringLength',
@@ -698,7 +713,7 @@ class User
             ),
             'validators' => array(
                 array(
-                    'name' => 'not_empty'
+                    'name' => 'notEmpty'
                 ),
                 array(
                     'name' => 'StringLength',
@@ -734,7 +749,7 @@ class User
                 'name' => 'email',
                 'validators' => array(
                     array(
-                        'name' => 'not_empty'
+                        'name' => 'notEmpty'
                     ),
                     array(
                         'name' => 'email_address',
